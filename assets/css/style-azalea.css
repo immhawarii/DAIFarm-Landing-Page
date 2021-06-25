@@ -5920,7 +5920,7 @@ ul.progress-info { display: flex; justify-content: space-between; }
 
 .copyright-text { color: #305082; }
 
-.tc-light .copyright-text { color: #97afd5; }
+.tc-light .copyright-text { color: #fff; }
 
 .copyright-text p { color: inherit; }
 
