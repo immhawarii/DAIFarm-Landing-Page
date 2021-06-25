@@ -621,7 +621,7 @@
             // Themes end
 
             // Create chart
-            var chart = am4core.create("chartdiv", am4charts.PieChart);
+            var chart = am4core.create("chartdiv", am4charts.PieChart3D);
             chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
             chart.data = [
@@ -648,7 +648,7 @@
             }
             ];
 
-            var pieSeries = chart.series.push(new am4charts.PieSeries());
+            var pieSeries = chart.series.push(new am4charts.PieSeries3D());
             pieSeries.dataFields.value = "value";
             pieSeries.dataFields.radiusValue = "value";
             pieSeries.dataFields.category = "country";
@@ -667,7 +667,7 @@
             let slice = pieSeries.slices.template;
             slice.states.getKey("active").properties.scale = 1;
             slice.states.getKey("active").properties.shiftRadius = 0.1;
-            pieSeries.slices.template.strokeWidth = 8;
+            pieSeries.slices.template.strokeWidth = 2;
             pieSeries.slices.template.strokeOpacity = 1;
             pieSeries.slices.template.stroke = am4core.color("#348484");
 
