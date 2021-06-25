@@ -22,7 +22,7 @@
    <style>
       #chartdiv {
         width: 100%;
-        height: 370px;
+        height: 340px;
       }
     </style>
    <body class="nk-body body-wider bg-theme">
@@ -128,10 +128,7 @@
                                  <h2 class="title  animated text-center " data-animate="fadeInUp" data-delay="0.2">Introduction</h2>
                                  <p class="animated" data-animate="fadeInUp" data-delay="0.2"></p>
                                  <div class="feature feature-inline feature-middle animated" data-animate="fadeInUp" data-delay="0.3">
-                                    <div class="feature-icon feature-icon-md">
-                                       <em class="icon icon-md icon-grd ikon ikon-bulb"></em>
-                                    </div>
-                                    <div class="feature-text">
+                                    <div class="feature-text" style="text-align: center;">
                                        <p>The world’s first unbiased currency
                                           Dai is a stable, decentralized currency that does not discriminate. Any individual or business can realize the advantages of digital money.
                                        </p>
@@ -297,21 +294,21 @@
                <!-- Block @s -->
                <div class="nk-block nk-block-token">
                   <div class="row section-head section-head-s4 wide-auto-sm text-center">
-                     <div class="col-mb-6 col-md-5 col-lg-4">
+                     <div class="col-mb-12 col-md-12 col-lg-4">
                         <div class="stage-info animated" data-animate="fadeInUp" data-delay=".2">
                            <h6 class="title title-s6 title-xs-s2">Total Supply</h6>
                            <p>100.000.000 ETHStaker</p>
                         </div>
                      </div>
                      <!-- .col  -->
-                     <div class="col-mb-6 col-md-5 col-lg-4">
+                     <div class="col-mb-12 col-md-12 col-lg-4">
                         <div class="stage-info animated" data-animate="fadeInUp" data-delay=".3">
                            <h6 class="title title-s6 title-xs-s2">Burned</h6>
                            <p> 22.000.000 </p>
                         </div>
                      </div>
                      <!-- .col  -->
-                     <div class="col-mb-6 col-md-5 col-lg-4">
+                     <div class="col-mb-12 col-md-12 col-lg-4">
                         <div class="stage-info animated" data-animate="fadeInUp" data-delay=".4">
                            <h6 class="title title-s6 title-xs-s2">Marketing</h6>
                            <p>5.000.000</p>
@@ -623,6 +620,37 @@
             // Create chart
             var chart = am4core.create("chartdiv", am4charts.PieChart3D);
             chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+            chart.responsive.enabled = true;
+            chart.responsive.useDefault = false;
+
+            chart.responsive.rules.push({
+               relevant: function(target) {
+               if (target.pixelWidth <= 500) {
+                  console.log(target.pixelWidth);
+                  return true;
+               }
+               console.log(target.pixelWidth);
+               return false;
+               },
+               state: function(target, stateId) {
+               
+               if (target instanceof am4charts.Chart) {
+                  var state = target.states.create(stateId);
+                  state.properties.paddingTop = 0;
+                  state.properties.paddingRight = 25;
+                  state.properties.paddingBottom = 0;
+                  state.properties.paddingLeft = 25;
+                  return state;
+               } else if (target instanceof am4charts.AxisLabelCircular ||
+                  target instanceof am4charts.PieTick) {
+                  var state = target.states.create(stateId);
+                  state.properties.disabled = true;                  
+                  return state;
+               }
+               return null;
+               }
+            });
+
 
             chart.data = [
             {
@@ -646,8 +674,7 @@
                color: am4core.color("#e9d8a6"),
                labelColor: "#880000"
             }
-            ];
-
+            ];           
             var pieSeries = chart.series.push(new am4charts.PieSeries3D());
             pieSeries.dataFields.value = "value";
             pieSeries.dataFields.radiusValue = "value";
@@ -657,20 +684,15 @@
             pieSeries.labels.template.text = "{category} \n {text}";
             pieSeries.labels.template.textColor = am4core.color("#348484");
             pieSeries.labels.template.fontSize = 17;
+            pieSeries.labels.template.maxWidth = 300;
             pieSeries.labels.template.wrap = true;
             pieSeries.labels.template.fill = am4core.color("white");
-
-            pieSeries.hiddenState.properties.endAngle = -90;
-            pieSeries.slices.template.tooltipText = "";
-            pieSeries.slices.template.tooltipColorSource = am4core.color("#348484");
-
-            let slice = pieSeries.slices.template;
-            slice.states.getKey("active").properties.scale = 1;
-            slice.states.getKey("active").properties.shiftRadius = 0.1;
             pieSeries.slices.template.strokeWidth = 2;
             pieSeries.slices.template.strokeOpacity = 1;
             pieSeries.slices.template.stroke = am4core.color("#348484");
-
+            pieSeries.hiddenState.properties.endAngle = -90;
+            pieSeries.slices.template.tooltipText = "{category} \n {text}";
+            pieSeries.slices.template.tooltipColorSource = am4core.color("#348484");
             pieSeries.slices.template.events.on("hit", function(ev) {
                var series = ev.target.dataItem.component;
                series.slices.each(function(item) {
@@ -679,6 +701,10 @@
                   }
                })
             });
+
+            let slice = pieSeries.slices.template;
+            slice.states.getKey("active").properties.scale = 1;
+            slice.states.getKey("active").properties.shiftRadius = 0.1;
             
             }); // end am4core.ready()
        </script>
