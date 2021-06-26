@@ -58,7 +58,7 @@
                            <li class="menu-item"><a class="menu-link nav-link" href="#">Chart</a></li>
                         </ul>
                         <ul class="menu-btns">
-                           <li><a href="#"  class="btn-medium btn-primary btn-round btn-auto "><span>Launch APP</span></a></li>
+                           <li><a href="app.html"  class="btn-medium btn-primary btn-round btn-auto "><span>Launch APP</span></a></li>
                         </ul>
                      </nav>
                   </div>
@@ -85,7 +85,7 @@
                            <h4 class="title title-lg ttu animated" data-animate="fadeInUp" data-delay=".9">Lorem ipsum dolor sit, amet consectetur adipisicing elit.</h4>
                            <div class="cpn-action animated" data-animate="fadeInUp" data-delay="1">
                               <a  class="btn btn-primary btn-round" href="https://exchange.pancakeswap.finance/#/swap">Buy Now</a>
-                              <a class="btn btn-primary btn-round" href="#">Launch App</a> <br> <br> <a class="btn btn-primary btn-round" href="Whitepaper.pdf">Whitepaper</a>
+                              <a class="btn btn-primary btn-round" href="app.html">Launch App</a> <br> <br> <a class="btn btn-primary btn-round" href="Whitepaper.pdf">Whitepaper</a>
                            </div>
                         </div>
                      </div>
@@ -626,10 +626,8 @@
             chart.responsive.rules.push({
                relevant: function(target) {
                if (target.pixelWidth <= 500) {
-                  console.log(target.pixelWidth);
                   return true;
                }
-               console.log(target.pixelWidth);
                return false;
                },
                state: function(target, stateId) {
